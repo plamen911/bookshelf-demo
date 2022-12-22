@@ -1,0 +1,20 @@
+old_sound_rabbit_mq:
+    connections:
+        default:
+            url: '%env(RABBITMQ_URL)%'
+            read_write_timeout: 4
+            heartbeat: 2
+    producers:
+        # use 'old_sound_rabbit_mq.task_producer' service to send data.
+        messaging:
+            class: App\Rabbit\MessagingProducer
+            connection:       default
+            exchange_options: { name: 'qMessages', type: direct }
+    consumers:
+        messaging:
+            connection:       default
+            exchange_options: { name: 'qMessages', type: direct }
+            queue_options:    { name: 'qMessages'}
+            callback:         message_service
+            #callback:         App\Consumer\TaskConsumer
+            enable_logger:    true

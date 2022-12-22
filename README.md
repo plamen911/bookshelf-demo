@@ -1,4 +1,4 @@
-## Project Setup
+## Symfony bookshelf application setup
 
 - Open terminal
 
